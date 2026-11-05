@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCQ Model Test | Admission Test BD</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,"Noto Sans Bengali",sans-serif;background:#f3f6fc;color:#102044}
+header{background:#0b1739;color:white;padding:18px}
+.container{max-width:800px;margin:25px auto;padding:0 15px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.timer{background:#fff0d6;color:#9a5b00;padding:10px 15px;border-radius:8px;font-weight:bold}
+.card{background:white;padding:22px;border-radius:14px;margin-top:18px;box-shadow:0 4px 18px #1020440d}
+.info{color:#64748b;margin-top:8px;font-size:14px}
+.question{padding:20px 0;border-bottom:1px solid #e5eaf2}
+.question h3{font-size:17px;margin-bottom:13px}
+.option{display:flex;gap:10px;align-items:center;padding:11px;margin:7px 0;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer}
+.option:has(input:checked){background:#edf3ff;border-color:#244b9b}
+button{border:0;border-radius:8px;padding:13px 20px;font-size:15px;font-weight:bold;cursor:pointer}
+.submit{background:#244b9b;color:white;width:100%;margin-top:20px}
+#result{display:none;margin-top:20px}
+.correct{color:#087443}
+.wrong{color:#b42318}
+@media(max-width:500px){.top{align-items:flex-start;flex-direction:column}.card{padding:16px}}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="top">
+    <strong>🎓 Admission Test BD</strong>
+    <span>MCQ Model Test</span>
+  </div>
+</header>
+
+<div class="container">
+  <div class="top">
+    <div>
+      <h2>বিশ্ববিদ্যালয় ভর্তি মডেল টেস্ট</h2>
+      <p class="info">নমুনা পরীক্ষা · ৫টি প্রশ্ন · ৫ নম্বর</p>
+    </div>
+    <div class="timer" id="timer">১০:০০</div>
+  </div>
+
+  <form id="exam" class="card">
+    <div id="questions"></div>
+    <button class="submit" type="submit">পরীক্ষা জমা দাও</button>
+  </form>
+
+  <div id="result" class="card"></div>
+</div>
+
+<script>
+const questions = [
+  {
+    q:"বাংলাদেশের জাতীয় ফুল কোনটি?",
+    options:["গোলাপ","শাপলা","জবা","বেলি"],
+    answer:1
+  },
+  {
+    q:"'Honest' শব্দটির বিপরীত শব্দ কোনটি?",
+    options:["Brave","Polite","Dishonest","Kind"],
+    answer:2
+  },
+  {
+    q:"2x + 6 = 14 হলে x-এর মান কত?",
+    options:["2","3","4","5"],
+    answer:2
+  },
+  {
+    q:"বাংলাদেশের স্বাধীনতা দিবস কবে?",
+    options:["২১ ফেব্রুয়ারি","২৬ মার্চ","১৬ ডিসেম্বর","১৪ এপ্রিল"],
+    answer:1
+  },
+  {
+    q:"'Beautiful' শব্দটি কোন Parts of Speech?",
+    options:["Noun","Verb","Adjective","Adverb"],
+    answer:2
+  }
+];
+
+const bn = n => String(n).replace(/\d/g,d=>"০১২৩৪৫৬৭৮৯"[d]);
+
+const questionBox = document.getElementById("questions");
+
+questions.forEach((q,i)=>{
+  const div=document.createElement("div");
+  div.className="question";
+  div.innerHTML=`<h3>${i+1}. ${q.q}</h3>`+
+    q.options.map((option,j)=>`
+      <label class="option">
+        <input type="radio" name="q${i}" value="${j}">
+        <span>${String.fromCharCode(65+j)}. ${option}</span>
+      </label>
+    `).join("");
+  questionBox.appendChild(div);
+});
+
+let remaining=600;
+let finished=false;
+
+const timer=document.getElementById("timer");
+
+const countdown=setInterval(()=>{
+  if(finished)return;
+  remaining--;
+  timer.textContent=bn(Math.floor(remaining/60))+":"+bn(remaining%60).padStart(2,"0");
+
+  if(remaining<=0){
+    finishExam();
+  }
+},1000);
+
+function finishExam(){
+  if(finished)return;
+  finished=true;
+  clearInterval(countdown);
+
+  let score=0;
+  let review="";
+
+  questions.forEach((q,i)=>{
+    const selected=document.querySelector(`input[name="q${i}"]:checked`);
+    const correct=q.options[q.answer];
+    const isCorrect=selected && Number(selected.value)===q.answer;
+
+    if(isCorrect)score++;
+
+    review+=`
+      <p style="margin:14px 0">
+        <strong>${i+1}. ${q.q}</strong><br>
+        তোমার উত্তর: ${selected?q.options[Number(selected.value)]:"উত্তর দেওয়া হয়নি"}<br>
+        সঠিক উত্তর: <span class="correct">${correct}</span>
+        ${isCorrect?"<span class='correct'>✓ সঠিক</span>":"<span class='wrong'>✗ ভুল</span>"}
+      </p>`;
+  });
+
+  document.querySelectorAll("#exam input").forEach(input=>input.disabled=true);
+  document.querySelector("#exam button").disabled=true;
+
+  const result=document.getElementById("result");
+  result.style.display="block";
+  result.innerHTML=`
+    <h2>তোমার পরীক্ষার ফলাফল</h2>
+    <h1 style="color:#244b9b;margin:12px 0">${bn(score)} / ${bn(questions.length)}</h1>
+    <p>সঠিক উত্তর: ${bn(score)}টি</p>
+    <p>ভুল বা উত্তর না দেওয়া: ${bn(questions.length-score)}টি</p>
+    <hr style="margin:18px 0">
+    <h3>উত্তর ও ব্যাখ্যা</h3>
+    ${review}
+    <button onclick="location.reload()" style="background:#244b9b;color:white;width:100%;margin-top:15px">
+      আবার পরীক্ষা দাও
+    </button>`;
+}
+
+document.getElementById("exam").addEventListener("submit",e=>{
+  e.preventDefault();
+  finishExam();
+});
+</script>
+</body>
+</html>
