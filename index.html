@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admission Test BD | বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, "Noto Sans Bengali", sans-serif;
+      background: #f5f7fc;
+      color: #0b1739;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    /* Header */
+    header {
+      background: #0b1739;
+      color: white;
+      padding: 18px 0;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .logo-icon {
+      background: #d9b66f;
+      color: #0b1739;
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+
+    .nav-link {
+      color: #e8c77f;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #0b1739, #173e78);
+      color: white;
+      padding: 65px 0;
+    }
+
+    .hero-content {
+      max-width: 720px;
+    }
+
+    .hero-tag {
+      color: #e8c77f;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 46px);
+      line-height: 1.4;
+      margin: 15px 0;
+    }
+
+    .hero p {
+      color: #d0d9ed;
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #d9b66f;
+      color: #0b1739;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 35px;
+      max-width: 500px;
+    }
+
+    .stat {
+      background: #ffffff14;
+      border: 1px solid #ffffff20;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      color: #e8c77f;
+      font-size: 22px;
+    }
+
+    .stat span {
+      color: #d0d9ed;
+      font-size: 12px;
+    }
+
+    /* Sections */
+    section {
+      padding: 45px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      font-size: 23px;
+    }
+
+    .section-heading span {
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    /* University cards */
+    .university-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .university-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 15px;
+      padding: 22px;
+      transition: 0.2s;
+    }
+
+    .university-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px #0b173912;
+      border-color: #244b9b;
+    }
+
+    .uni-icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      background: #eaf0ff;
+      color: #244b9b;
+      border-radius: 12px;
+      font-size: 23px;
+      margin-bottom: 15px;
+    }
+
+    .university-card h3 {
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+
+    .university-card p {
+      color: #64748b;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .university-card a {
+      color: #244b9b;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* Model test */
+    .test-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 15px;
+      padding: 25px;
+    }
+
+    .test-label {
+      color: #244b9b;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .test-card h3 {
+      margin: 10px 0;
+    }
+
+    .test-info {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .test-button {
+      display: block;
+      text-align: center;
+      background: #244b9b;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+      background: #0b1739;
+      color: #d0d9ed;
+      text-align: center;
+      padding: 25px 10px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      .university-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .university-card {
+        padding: 15px;
+      }
+
+      .university-card h3 {
+        font-size: 15px;
+      }
+
+      .hero {
+        padding: 45px 0;
+      }
+
+      .section-heading h2 {
+        font-size: 19px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .university-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container navbar">
+      <div class="logo">
+        <span class="logo-icon">🎓</span>
+        <span>Admission Test BD</span>
+      </div>
+      <a href="#universities" class="nav-link">বিশ্ববিদ্যালয়সমূহ</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="container hero-content">
+        <div class="hero-tag">YOUR FUTURE STARTS HERE</div>
+
+        <h1>
+          স্বপ্নের বিশ্ববিদ্যালয়ে ভর্তির প্রস্তুতি শুরু হোক আজই!
+        </h1>
+
+        <p>
+          ঘরে বসে অনলাইন MCQ পরীক্ষা দাও, নিজের প্রস্তুতি যাচাই করো
+          এবং এগিয়ে যাও সাফল্যের পথে।
+        </p>
+
+        <a href="#model-tests" class="btn">
+          মডেল টেস্ট শুরু করো →
+        </a>
+
+        <div class="stats">
+          <div class="stat">
+            <strong>MCQ</strong>
+            <span>অনলাইন পরীক্ষা</span>
+          </div>
+
+          <div class="stat">
+            <strong>24/7</strong>
+            <span>প্রস্তুতি</span>
+          </div>
+
+          <div class="stat">
+            <strong>FREE</strong>
+            <span>মডেল টেস্ট</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="universities">
+      <div class="container">
+        <div class="section-heading">
+          <h2>বিশ্ববিদ্যালয় নির্বাচন</h2>
+          <span>সবগুলো দেখুন →</span>
+        </div>
+
+        <div class="university-grid">
+
+          <div class="university-card">
+            <div class="uni-icon">🏛️</div>
+            <h3>ঢাকা বিশ্ববিদ্যালয়</h3>
+            <p>ইউনিটভিত্তিক মডেল টেস্ট</p>
+            <a href="#model-tests">পরীক্ষা দেখুন →</a>
+          </div>
+
+          <div class="university-card">
+            <div class="uni-icon">🏛️</div>
+            <h3>জাহাঙ্গীরনগর বিশ্ববিদ্যালয়</h3>
+            <p>ইউনিটভিত্তিক মডেল টেস্ট</p>
+            <a href="#model-tests">পরীক্ষা দেখুন →</a>
+          </div>
+
+          <div class="university-card">
+            <div class="uni-icon">🏛️</div>
+            <h3>রাজশাহী বিশ্ববিদ্যালয়</h3>
+            <p>ইউনিটভিত্তিক মডেল টেস্ট</p>
+            <a href="#model-tests">পরীক্ষা দেখুন →</a>
+          </div>
+
+          <div class="university-card">
+            <div class="uni-icon">🏛️</div>
+            <h3>চট্টগ্রাম বিশ্ববিদ্যালয়</h3>
+            <p>ইউনিটভিত্তিক মডেল টেস্ট</p>
+            <a href="#model-tests">পরীক্ষা দেখুন →</a>
+          </div>
+
+          <div class="university-card">
+            <div class="uni-icon">🏛️</div>
+            <h3>খুলনা বিশ্ববিদ্যালয়</h3>
+            <p>ইউনিটভিত্তিক মডেল টেস্ট</p>
+            <a href="#model-tests">পরীক্ষা দেখুন →</a>
+          </div>
+
+          <div class="university-card">
+            <div class="uni-icon">🏛️</div>
+            <h3>গুচ্ছভুক্ত বিশ্ববিদ্যালয়</h3>
+            <p>গুচ্ছ ভর্তি মডেল টেস্ট</p>
+            <a href="#model-tests">পরীক্ষা দেখুন →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="model-tests">
+      <div class="container">
+        <div class="section-heading">
+          <h2>জনপ্রিয় মডেল টেস্ট</h2>
+          <span>নতুন পরীক্ষা</span>
+        </div>
+
+        <div class="test-card">
+          <div class="test-label">
+            UNIVERSITY ADMISSION · MCQ
+          </div>
+
+          <h3>পূর্ণাঙ্গ মডেল টেস্ট - ০১</h3>
+
+          <p class="test-info">
+            ১০০টি প্রশ্ন · ৬০ মিনিট · ১০০ নম্বর
+          </p>
+
+          <a href="#" class="test-button" onclick="alert('পরীক্ষার পেইজ পরবর্তী ধাপে তৈরি করা হবে।'); return false;">
+            পরীক্ষা শুরু করো
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Admission Test BD · তোমার ভর্তি প্রস্তুতির বিশ্বস্ত সঙ্গী
+  </footer>
+
+</body>
+</html>
